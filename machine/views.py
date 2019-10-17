@@ -1,6 +1,10 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from machine.models import Machine
+from machine.serializers import MachineSerializer
+from rest_framework import viewsets
 
-from django.shortcuts import render
-
-# Create your views here.
+class MachineViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing user instances.
+    """
+    serializer_class = MachineSerializer
+    queryset = Machine.objects.all()

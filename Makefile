@@ -34,7 +34,7 @@ root_dev:
 	@echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', '', 'admin')" | ${PYTHON} manage.py shell
 
 migrations:
-	${PYTHON} manage.py makemigrations patch_store advice_store data_controller machines todo_list fco_store
+	${PYTHON} manage.py makemigrations machine
 
 migrate:
 	${PYTHON} manage.py migrate
@@ -48,7 +48,7 @@ flush_db_dev:
 static:
 	${PYTHON} manage.py collectstatic
 
-run_dev: clean migrations migrate loaddata root_dev
+run_dev: clean migrations migrate root_dev
 	${PYTHON} manage.py runserver 0.0.0.0:8000
 
 run_prod: clean migrations migrate root_dev
