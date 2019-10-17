@@ -24,5 +24,5 @@ schema_view = get_swagger_view(title='Raspberry PI Manager API')
 urlpatterns = [
     url(r'^swagger/', schema_view),
     url(r'^admin/', admin.site.urls),
-    url('machine/', include('machine.urls'))
+    url(r'^machine/', include('machine.urls'))
 ]
