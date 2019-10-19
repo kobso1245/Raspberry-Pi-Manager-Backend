@@ -1,8 +1,8 @@
 .PHONY: clean test help rebase
 .DEFAULT_GOAL := help
 
-PYTHON := .venv/bin/python
-PIP := .venv/bin/pip
+PYTHON := python3
+PIP := pip3
 PROJECT := raspbery-pi-manager-backend
 DB_FILE := ./tmp/backend.sqlite3
 REQUIREMENTS_FILE := requirements.txt
@@ -48,11 +48,17 @@ flush_db_dev:
 static:
 	${PYTHON} manage.py collectstatic
 
-run_dev: clean migrations migrate root_dev
+setup: reqs_inst migrations migrate root_dev
+	@echo "Setup done"
+
+run_dev: setup
 	${PYTHON} manage.py runserver 0.0.0.0:8000
 
-run_prod: clean migrations migrate root_dev
+run_prod: clean setup
 	${PYTHON} server.py
+
+run_daphne: setup
+	daphne -b 0.0.0.0 backend.asgi:application 
 
 test:
 	${PYTHON} manage.py test

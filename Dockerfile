@@ -1,9 +1,7 @@
 FROM alpine:3.7
-RUN apk add --no-cache python3 py-virtualenv py3-gunicorn gcc linux-headers python3-dev musl-dev libc-dev libffi-dev libssl-dev
+RUN apk add --no-cache python3 py-virtualenv py3-gunicorn gcc linux-headers python3-dev musl-dev libc-dev libffi-dev libressl-dev make bash
 
-RUN python3.7 -m virtualenv -p python3.7 /opt/venv
-COPY requirements.txt .
-RUN . /opt/venv/bin/activate && pip install -r requirements.txt
+WORKDIR /code
 COPY . .
 
-ENTRYPOINT ["make", "run_dev"]
+ENTRYPOINT ["make", "run_daphne"]

@@ -25,7 +25,7 @@ SECRET_KEY = 'm@(cs&z%lxhui1fw8$s#06eepxsmvtpryi6a%nv)wwkk7s#wla'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -134,7 +134,11 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [
+                ('127.0.0.1', 6379),
+                # Docker-specific host @TODO: Remove
+                ('10.5.0.6', 6379)
+            ],
         },
     },
 }
